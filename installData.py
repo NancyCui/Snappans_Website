@@ -19,20 +19,13 @@ import sys
 import MySQLdb
 import redis
 
+from conf import CONFIG
 #--------------------------------------------------------------
 # Globl Constants & Functions
 #--------------------------------------------------------------
-REDIS_DB_PARAMS = {
-        "host": "127.0.0.1",
-        #"host": "112.126.75.226",
-        "port": 6379,
-        "db": 0,
-        "charset": "utf8"
-    }
-
 def main():
     idt = InstallData()
-    idt.installRedisData(REDIS_DB_PARAMS)
+    idt.installRedisData(CONFIG['redis'])
 
 #--------------------------------------------------------------
 # Classes
