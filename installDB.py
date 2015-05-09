@@ -3,9 +3,9 @@
 #
 #--------------------------------------------------------------
 #
-# XXXXX Database
+# Snappans Database
 #
-# Install database for XXXXX.
+# Install database for Snappans.
 #
 #--------------------------------------------------------------
 #
