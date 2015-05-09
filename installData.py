@@ -30,21 +30,14 @@ REDIS_DB_PARAMS = {
         "charset": "utf8"
     }
 
-MYSQL_DB_PARAMS = {
-    "host": "127.0.0.1",
-    #"host": "112.126.75.226",
-    "port": 3306,
-    "user": "ningxin",
-    "passwd": "watson",
-    "db": "inteluniq",
-    "charset": "utf8"
-    }
-
 def main():
     idt = InstallData()
-    idt.installMySQLData(MYSQL_DB_PARAMS)
     idt.installRedisData(REDIS_DB_PARAMS)
 
+#--------------------------------------------------------------
+# Classes
+#--------------------------------------------------------------
+class InstallData(object):
 
 
 

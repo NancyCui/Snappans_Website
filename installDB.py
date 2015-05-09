@@ -19,6 +19,15 @@ import os
 import sys
 import MySQLdb
 
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+CONF_DIR = os.path.join( BASE_DIR, 'conf')
+os.sys.path.insert(0, CONF_DIR)
+
+from conf import CONFIG
+
+#--------------------------------------------------------------
+# Global Constants & Vars
+#--------------------------------------------------------------
 INSTALL_SQL = """
 SET time_zone = "+08:00";
 
@@ -217,15 +226,7 @@ def install_db(db_params):
                 sys.exit(-1)
 
 def main():
-    db_params = {
-            "host": "127.0.0.1",
-            "port": 3306,
-            "user": "ningxin",
-            "passwd": "watson",
-            "db":"snappans",
-            "charset": "utf8"
-            }
-    install_db(db_params)
+    install_db(CONFIG['database'])
 
 #--------------------------------------------------------------
 #
