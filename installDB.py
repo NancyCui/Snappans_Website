@@ -194,6 +194,7 @@ CREATE TABLE IF NOT EXISTS `photo_comments` (
 CREATE TABLE IF NOT EXISTS `photo_likes` (
   `photo_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
+  `like_time` datetime NOT NULL,
   FOREIGN KEY(`photo_id`) REFERENCES photos(`photo_id`),
   FOREIGN KEY(`user_id`) REFERENCES users(`user_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
@@ -202,6 +203,7 @@ CREATE TABLE IF NOT EXISTS `photo_reposts` (
   `photo_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `repost_type` int(11) NOT NULL,
+  `repost_time` datetime NOT NULL,
   FOREIGN KEY(`photo_id`) REFERENCES photos(`photo_id`),
   FOREIGN KEY(`user_id`) REFERENCES users(`user_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
