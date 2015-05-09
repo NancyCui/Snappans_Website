@@ -15,3 +15,4 @@
 #
 
 from config import CONFIG
+from base import BaseHandler
