@@ -57,14 +57,12 @@ CREATE TABLE IF NOT EXISTS `traders_status` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `follow` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
   `follow_id` int(11) NOT NULL,
   `follower_id` int(11) NOT NULL,
   `follow_time` datetime NOT NULL,
-  PRIMARY KEY (`id`),
   FOREIGN KEY(`follow_id`) REFERENCES users_pwd(`user_id`),
   FOREIGN KEY(`follower_id`) REFERENCES users_pwd(`user_id`)
-)ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+)ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `message` (
   `message_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -77,20 +75,17 @@ CREATE TABLE IF NOT EXISTS `message` (
 )ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 CREATE TABLE IF NOT EXISTS `invitation_codes` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
   `invitation_code` varchar(30) NOT NULL,
   `code_type` tinyint(1) NOT NULL DEFAULT '0' COMMENT '验证码未分配默认0',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  PRIMARY KEY (`invitation_code`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 ;
 
 CREATE TABLE IF NOT EXISTS `inviation_relationship` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
   `inviter_id` int(11) NOT NULL,
   `invitee_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
   FOREIGN KEY(`inviter_id`) REFERENCES users_pwd(`user_id`),
   FOREIGN KEY(`invitee_id`) REFERENCES users_pwd(`user_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 ;
 
 CREATE TABLE IF NOT EXISTS `model_address` (
   `address_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -102,7 +97,7 @@ CREATE TABLE IF NOT EXISTS `model_address` (
   `create_time` datetime NOT NULL,
   PRIMARY KEY (`address_id`),
   FOREIGN KEY(`model_id`) REFERENCES users_pwd(`user_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 CREATE TABLE IF NOT EXISTS `posts` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -130,14 +125,12 @@ CREATE TABLE IF NOT EXISTS `trader_offer` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 CREATE TABLE IF NOT EXISTS `trader_offer_relationship` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
   `model_id` int(11) NOT NULL,
   `offer_id` int(11) NOT NULL,
   `status` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
   FOREIGN KEY(`model_id`) REFERENCES users_pwd(`user_id`),
   FOREIGN KEY(`offer_id`) REFERENCES trader_offer(`trader_offer_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 ;
 
 CREATE TABLE IF NOT EXISTS `model_offer` (
   `model_offer_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -155,14 +148,12 @@ CREATE TABLE IF NOT EXISTS `model_offer` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 CREATE TABLE IF NOT EXISTS `model_offer_relationship` (
-  `id` int(11) NOT NULL  AUTO_INCREMENT,
   `trader_id` int(11) NOT NULL,
   `offer_id` int(11) NOT NULL,
   `status` tinyint(1) NOT NULL,
-  PRIMARY KEY (`id`),
   FOREIGN KEY(`trader_id`) REFERENCES users_pwd(`user_id`),
   FOREIGN KEY(`offer_id`) REFERENCES model_offer(`model_offer_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 ;
 
 CREATE TABLE IF NOT EXISTS `albums` (
   `album_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -178,8 +169,6 @@ CREATE TABLE IF NOT EXISTS `photos` (
   `create_time` datetime NOT NULL,
   `photo_type` tinyint(1) NOT NULL DEFAULT '1' COMMENT '普通图片默认1',
   `description` longtext DEFAULT NULL,
-  `repost_num` int(11) DEFAULT NULL,
-  `like_num` int(11) DEFAULT NULL,
   `country` varchar(20) NOT NULL,
   `city` varchar(20) NOT NULL,
   `album_id` int(11) NOT NULL,
@@ -197,8 +186,24 @@ CREATE TABLE IF NOT EXISTS `photo_comments` (
   `reply_id` int(11) DEFAULT NULL COMMENT '回复的comment_id可为空',
   `photo_comment` longtext NOT NULL,
   PRIMARY KEY (`comment_id`),
-  FOREIGN KEY(`photo_id`) REFERENCES photos(`photo_id`)
+  FOREIGN KEY(`photo_id`) REFERENCES photos(`photo_id`),
+  FOREIGN KEY(`user_id`) REFERENCES users(`user_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `photo_likes` (
+  `photo_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  FOREIGN KEY(`photo_id`) REFERENCES photos(`photo_id`),
+  FOREIGN KEY(`user_id`) REFERENCES users(`user_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `photo_reposts` (
+  `photo_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `repost_type` int(11) NOT NULL,
+  FOREIGN KEY(`photo_id`) REFERENCES photos(`photo_id`),
+  FOREIGN KEY(`user_id`) REFERENCES users(`user_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 """
 
 def install_db(db_params):
