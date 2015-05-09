@@ -140,7 +140,7 @@ CREATE TABLE IF NOT EXISTS `model_offer` (
   `end_time` datetime NOT NULL,
   `country` varchar(30) NOT NULL,
   `city` varchar(30) NOT NULL,
-  `create_time` varchar(255) NOT NULL,
+  `create_time` datetime NOT NULL,
   `description` varchar(255) NOT NULL,
   `status` tinyint(1) NOT NULL,
   PRIMARY KEY (`model_offer_id`),
@@ -158,6 +158,7 @@ CREATE TABLE IF NOT EXISTS `model_offer_relationship` (
 CREATE TABLE IF NOT EXISTS `albums` (
   `album_id` int(11) NOT NULL AUTO_INCREMENT,
   `album_name` varchar(30) NOT NULL,
+  `create_time` datetime NOT NULL,
   `user_id` int(11) NOT NULL,
   PRIMARY KEY (`album_id`),
   FOREIGN KEY(`user_id`) REFERENCES users_pwd(`user_id`)
